@@ -18,7 +18,7 @@ const Category = () => {
         <div>
             <SectionTitle
                 subHeading={`From 11.00am to 10.00pm`}
-                heading={"Order Online"}
+                heading="Order Online"
                 >
                
             </SectionTitle>
