@@ -12,14 +12,14 @@ const OrderTab = ({ items }) => {
   console.log(items);
 
   const chunkArray = (array, size) => {
-    const chunks = []; // এখানে ভাগ করা গ্রুপগুলো রাখা হবে
+    const chunks = [];
     for (let i = 0; i < array.length; i += size) {
-      chunks.push(array.slice(i, i + size)); // প্রতি ৬টি আইটেম একসাথে নিয়ে একটি গ্রুপ বানানো
+      chunks.push(array.slice(i, i + size));
     }
-    return chunks; // ভাগ করা গ্রুপগুলো রিটার্ন করবে
+    return chunks; 
   };
 
-  // Items-কে ভাগ করা (৬টি করে)
+ 
   const chunkedItems = chunkArray(items, 6);
 
   const pagination = {
@@ -31,11 +31,11 @@ const OrderTab = ({ items }) => {
   return (
     <div>
       <Swiper
-        pagination={pagination} // Swiper-এর pagination চালু
+        pagination={pagination} 
         modules={[Pagination]}
         className="mySwiper"
       >
-        {/* chunkedItems থেকে প্রতিটি গ্রুপের জন্য একটি স্লাইড তৈরি */}
+      
         {chunkedItems.map((chunk, index) => (
           <SwiperSlide key={index}>
             <div className="grid md:grid-cols-3 gap-10">
