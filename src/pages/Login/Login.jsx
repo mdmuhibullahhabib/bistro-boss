@@ -1,39 +1,43 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
-  loadCaptchaEnginge,
-  LoadCanvasTemplate,
-  LoadCanvasTemplateNoReload,
-  validateCaptcha,
-} from "react-simple-captcha";
+  loadCaptchaEnginge,LoadCanvasTemplate,validateCaptcha,} from "react-simple-captcha";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-
-    const captchRef = useRef(null);
+  const captchRef = useRef(null);
     const [desabled, setDesabled] = useState(true);
+    
+    const { signIn } = useContext(AuthContext);
 
-    useEffect(() => {
-        loadCaptchaEnginge(6); 
-    },[])
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
 
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    };
-    
-    const handleValidateCaptcha = () => {
-        const user_captcha_value = captchRef.current.value;
-        console.log(user_captcha_value);
+      console.log(email, password);
+      
+      signIn(email, password)
+          .then(result => {
+              const user = result.user;
+              console.log(user);
+      })
+  };
 
-        if (validateCaptcha(user_captcha_value)) {
-            setDesabled(false)
-        } else {
-            setDesabled(true);
-        }
+  const handleValidateCaptcha = () => {
+    const user_captcha_value = captchRef.current.value;
+    console.log(user_captcha_value);
 
+    if (validateCaptcha(user_captcha_value)) {
+      setDesabled(false);
+    } else {
+      setDesabled(true);
     }
+  };
   return (
     <div>
       <div className="hero bg-base-200 min-h-screen">
@@ -79,26 +83,32 @@ const Login = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <LoadCanvasTemplate/>
+                  <LoadCanvasTemplate />
                 </label>
                 <input
                   type="button"
-                                  name="captcha"
-                                  ref={captchRef}
+                  name="captcha"
+                  ref={captchRef}
                   placeholder="type the captcha above"
                   className="input input-bordered"
                   required
-                              />
-                              <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs mt-2">Validate</button>
-             
+                />
+                <button
+                  onClick={handleValidateCaptcha}
+                  className="btn btn-outline btn-xs mt-2"
+                >
+                  Validate
+                </button>
               </div>
               <div className="form-control mt-6">
-                <input disabled={desabled}
+                <input
+                  disabled={desabled}
                   className="btn btn-primary"
                   type="submit"
                   value="Login"
                 />
-              </div>
+                          </div>
+                          <p><small>New Here?<Link to='/signup'> Create An Account</Link></small></p>
             </form>
           </div>
         </div>
