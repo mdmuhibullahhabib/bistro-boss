@@ -11,8 +11,10 @@ const Main = () => {
       location.pathname.includes("signup");
     return (
         <div>
-           { noHeaderFooter || <Navbar/>}
+            {noHeaderFooter || <Navbar />}
+            
             <Outlet />
+            
             {noHeaderFooter || <Footer/>}
         </div>
     );
