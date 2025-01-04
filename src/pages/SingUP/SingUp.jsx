@@ -4,45 +4,59 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SingUp = () => {
+  const axiosPublic = useAxiosPublic();
 
   const navigate = useNavigate();
-    const { createUser, updateUserProfile } = useContext(AuthContext);
-  const {register,handleSubmit,reset,formState: { errors },} = useForm();
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = (data) => {
-      console.log(data);
-      createUser(data.email, data.password)
-          .then(result => {
-              const loggedUser = result.suer;
-            console.log(loggedUser);
-            updateUserProfile(data.name, data.photoURL)
-              .then(() => {
-                // console.log('user profile info updated');
-                // reate user entry in the database
-                
-                reset();
-                Swal.fire({
-                  position: 'top-end',
-                  icon: 'success',
-                  title: 'user profile update successfully',
-                  showConfirmButton: false,
-                  timer:1500
-                })
-                navigate('/')
-              })
-            .catch((error) => console.log(error))
-      })
+    console.log(data);
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.suer;
+      console.log(loggedUser);
+      updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+          // console.log('user profile info updated');
+          // reate user entry in the database
+
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log('user added on database');
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "user profile update successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate("/");
+            }
+          });
+        })
+        .catch((error) => console.log(error));
+    });
   };
- 
 
   return (
-      <>
-          <Helmet>
-              <title> Bistro Boss | Sign Up</title>
-          </Helmet>
+    <>
+      <Helmet>
+        <title> Bistro Boss | Sign Up</title>
+      </Helmet>
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
@@ -147,8 +161,12 @@ const SingUp = () => {
                   value="Sign Up"
                 />
               </div>
-                      </form>
-                      <p><small>Alreary have an account <Link to='/login'>Login</Link></small></p>
+            </form>
+            <p>
+              <small>
+                Alreary have an account <Link to="/login">Login</Link>
+              </small>
+            </p>
           </div>
         </div>
       </div>
