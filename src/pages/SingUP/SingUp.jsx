@@ -20,7 +20,9 @@ const SingUp = () => {
             console.log(loggedUser);
             updateUserProfile(data.name, data.photoURL)
               .then(() => {
-                console.log('user profile info updated');
+                // console.log('user profile info updated');
+                // reate user entry in the database
+                
                 reset();
                 Swal.fire({
                   position: 'top-end',
