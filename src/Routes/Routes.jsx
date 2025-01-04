@@ -13,42 +13,50 @@ import Cart from "../pages/Dashboard/Cart/Cart";
 export const router = createBrowserRouter([
   {
     path: "/",
-        element: <Main />,
-        children: [
-            {
-                path: '/',
-                element: <Home/>,
-          },
-          {
-            path: 'menu',
-            element:<Manu/>,
-          },
-          {
-            path: 'order/:category',
-            element: <Order/>,
-          },
-          {
-            path: 'login',
-            element:<Login/>
-          },
-          {
-            path: '/signup',
-            element:<SingUp/>,
-          },
-          {
-            path: 'secret',
-            element: <PrivateRoute><Secret></Secret></PrivateRoute>,
-          },
+    element: <Main />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "menu",
+        element: <Manu />,
+      },
+      {
+        path: "order/:category",
+        element: <Order />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SingUp />,
+      },
+      {
+        path: "secret",
+        element: (
+          <PrivateRoute>
+            <Secret></Secret>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
-    path: 'dashboard',
-    element: <Dashboard></Dashboard>,
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: 'cart',
+        path: "cart",
         element: <Cart></Cart>,
       },
-    ]
+    ],
   },
 ]);
