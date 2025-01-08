@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
+import axios from "axios";
 
 const SingUp = () => {
   const axiosPublic = useAxiosPublic();
@@ -22,7 +23,7 @@ const SingUp = () => {
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password).then((result) => {
-      const loggedUser = result.suer;
+      const loggedUser = result.user;
       console.log(loggedUser);
       updateUserProfile(data.name, data.photoURL)
         .then(() => {
@@ -34,10 +35,10 @@ const SingUp = () => {
             email: data.email,
           };
 
-          axiosPublic.post("/users", userInfo).then((res) => {
+          axios.post("http://localhost:5000/users", userInfo).then((res) => {
             if (res.data.insertedId) {
-              console.log('user added on database');
-              reset();
+              console.log("user added on database");
+              // reset();
               Swal.fire({
                 position: "top-end",
                 icon: "success",

@@ -31,23 +31,23 @@ const Login = () => {
           .then(result => {
               const user = result.user;
               console.log(user);
-              Swal.fire({
-                title: "User Logged in Successfully",
-                showClass: {
-                  popup: `
-      animate__animated
-      animate__fadeInUp
-      animate__faster
-    `,
-                },
-                hideClass: {
-                  popup: `
-      animate__animated
-      animate__fadeOutDown
-      animate__faster
-    `,
-                },
-              });
+    //           Swal.fire({
+    //             title: "User Logged in Successfully",
+    //             showClass: {
+    //               popup: `
+    //   animate__animated
+    //   animate__fadeInUp
+    //   animate__faster
+    // `,
+    //             },
+    //             hideClass: {
+    //               popup: `
+    //   animate__animated
+    //   animate__fadeOutDown
+    //   animate__faster
+    // `,
+    //             },
+    //           });
                 navigate(from, {replace: true})
           })
   };
