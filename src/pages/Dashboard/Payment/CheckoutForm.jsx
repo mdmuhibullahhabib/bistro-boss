@@ -14,6 +14,7 @@ const CheckoutForm = () => {
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
     const [cart] = useCart();
+    // console.log(cart);
     const totalPrice = cart.reduce((total, item) => total + item.price,0)
 
  useEffect(() => {
@@ -78,6 +79,20 @@ const CheckoutForm = () => {
             if (paymentIntent.status === 'succeeded') {
                 console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id)
+
+                // now save the payment in the database
+                const payment = {
+                  email: user?.email,
+                  price: totalPrice,
+                  transectionId: paymentIntent.id,
+                  date: new Date(), // utc date convert. use moment js to
+                  cartIds: cart.map((item) => item._id),
+                  menuItemIds: cart.map((item) => item.manuId),
+                  status: "pending",
+                };
+
+                const res = await axiosSecure.post("/payment", payment);
+                console.log('payment saved',res.data);
             }
         }
     }
