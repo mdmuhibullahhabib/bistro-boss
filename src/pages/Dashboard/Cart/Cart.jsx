@@ -2,6 +2,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const Cart = () => {
@@ -45,26 +46,31 @@ const Cart = () => {
         <div className="flex justify-evenly">
           <h2 className="text-4xl">Items: {cart.length}</h2>
           <h2 className="text-4xl">Total Price: {totalPrice}</h2>
-          <button className="btn btn-primary">Pay</button>
+          {cart.length ? (
+            <Link to="/dashboard/payment">
+              <button className="btn btn-primary">Pay</button>
+            </Link>
+          ) : (
+            
+              <button disabled className="btn btn-primary">Pay</button>
+            
+          )}
         </div>
         <div className="overflow-x-auto w-full">
           <table className="table">
             {/* head */}
             <thead>
               <tr>
-               #
-                <th>Image</th>
+                #<th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {cart.map((item,index) => (
+              {cart.map((item, index) => (
                 <tr key={item._id}>
-                  <th>
-                  {index +1}
-                  </th>
+                  <th>{index + 1}</th>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -75,16 +81,16 @@ const Cart = () => {
                           />
                         </div>
                       </div>
-                     
                     </div>
                   </td>
-                  <td>
-                   {item.name}
-                  </td>
-                      <td>${ item.price}</td>
+                  <td>{item.name}</td>
+                  <td>${item.price}</td>
                   <th>
-                          <button onClick={() => handleDelete(item._id)} className="btn btn-ghost btn-xs">
-                              <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                    <button
+                      onClick={() => handleDelete(item._id)}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      <FaTrashAlt className="text-red-600"></FaTrashAlt>
                     </button>
                   </th>
                 </tr>
