@@ -25,12 +25,10 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-      console.log(email, password);
       
       signIn(email, password)
           .then(result => {
               const user = result.user;
-              console.log(user);
     //           Swal.fire({
     //             title: "User Logged in Successfully",
     //             showClass: {
@@ -54,7 +52,6 @@ const Login = () => {
 
   const handleValidateCaptcha = (e) => {
     const user_captcha_value = e.target.value;
-    console.log(user_captcha_value);
 
     if (validateCaptcha(user_captcha_value)) {
       setDesabled(false);

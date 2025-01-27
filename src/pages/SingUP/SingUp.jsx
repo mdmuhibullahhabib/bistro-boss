@@ -21,13 +21,10 @@ const SingUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
-      console.log(loggedUser);
       updateUserProfile(data.name, data.photoURL)
         .then(() => {
-          // console.log('user profile info updated');
           // reate user entry in the database
 
           const userInfo = {
@@ -35,22 +32,28 @@ const SingUp = () => {
             email: data.email,
           };
 
-          axios.post("http://localhost:5000/users", userInfo).then((res) => {
-            if (res.data.insertedId) {
-              console.log("user added on database");
-              // reset();
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "user profile update successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              navigate("/");
-            }
-          });
+          axios
+            .post(
+              "https://bistro-boss-server-indol-five.vercel.app/users",
+              userInfo
+            )
+            .then((res) => {
+              if (res.data.insertedId) {
+                // reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "user profile update successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            });
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          
+        });
     });
   };
 

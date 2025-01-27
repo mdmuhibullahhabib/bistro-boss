@@ -8,8 +8,6 @@ const Checkout = () => {
   const { user } = useAuth();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
-   
-   
   const handleCreatePayment = async () => {
     // now save the payment in the database
     const payment = {
@@ -23,7 +21,7 @@ const Checkout = () => {
     };
 
     const response = await axios.post(
-      "http://localhost:5000/create-ssl-payment",
+      "https://bistro-boss-server-indol-five.vercel.app/create-ssl-payment",
       payment
     );
 
@@ -31,7 +29,6 @@ const Checkout = () => {
       window.location.replace(response.data.gatewayUrl);
     }
 
-    console.log("response", response.data);
   };
 
   return (
@@ -43,7 +40,10 @@ const Checkout = () => {
             Complete your order by providing your payment details.
           </p>
           <div className="">
-            <label htmlFor="email" className="mt-4 mb-2 block text-sm font-medium">
+            <label
+              htmlFor="email"
+              className="mt-4 mb-2 block text-sm font-medium"
+            >
               Email
             </label>
             <div className="relative">
@@ -101,7 +101,7 @@ const Checkout = () => {
               menuItemIds: cart.map((item) => item.menuId),
               status: "pending",
             })}
-            endpoint="http://localhost:5000/create-ssl-payment"
+            endpoint="https://bistro-boss-server-indol-five.vercel.app/create-ssl-payment"
           >
             {" "}
             Pay Now

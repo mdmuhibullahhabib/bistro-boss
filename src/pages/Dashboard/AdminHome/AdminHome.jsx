@@ -37,7 +37,6 @@ const AdminHome = () => {
       return res.data;
     },
   });
-//   console.log(chartData);
 
   const getPath = (x, y, width, height) => {
     return `M${x},${y + height}C${x + width / 3},${y + height} ${

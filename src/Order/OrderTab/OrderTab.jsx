@@ -9,7 +9,6 @@ import "swiper/css/pagination";
 import { Pagination } from 'swiper/modules';
 
 const OrderTab = ({ items }) => {
-  console.log(items);
 
   const chunkArray = (array, size) => {
     const chunks = [];

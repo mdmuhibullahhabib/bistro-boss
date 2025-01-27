@@ -7,13 +7,11 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
     const [cart, refetch] = useCart();
-    // console.log(cart);
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
     const axiosSecure = useAxiosSecure();
     
     const handleDelete = id => {
-        // console.log(id);
         Swal.fire({
           title: "Are you sure?",
           text: "You won't be able to revert this!",

@@ -5,10 +5,8 @@ import useMenu from "../../../hooks/useMenu";
 
 const Recommends = () => {
     const [menu] = useMenu();
-    // console.log(menu);
 
     const salad = menu.filter(item => item.category === 'salad').slice(0,3);
-    console.log(salad);
 
     
     return (

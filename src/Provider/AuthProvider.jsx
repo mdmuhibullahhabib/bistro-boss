@@ -55,18 +55,21 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         // get token and store client
         const userInfo = { email: currentUser?.email };
-        axios.post("http://localhost:5000/jwt", userInfo).then((res) => {
-          console.log(res);
-          if (res.data.token) {
-            localStorage.setItem("access-token", res.data.token);
-            setLoading(false);
-          }
-        });
+        axios
+          .post(
+            "https://bistro-boss-server-indol-five.vercel.app/jwt",
+            userInfo
+          )
+          .then((res) => {
+            if (res.data.token) {
+              localStorage.setItem("access-token", res.data.token);
+              setLoading(false);
+            }
+          });
       } else {
         // TODO: remove token (if token stored in the client side: loccal storage , caching,  in memory)
         localStorage.removeItem("access-token");
       }
-      console.log("current user", currentUser);
       setLoading(false);
     });
 

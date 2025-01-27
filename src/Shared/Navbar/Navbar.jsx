@@ -14,9 +14,10 @@ const Navbar = () => {
   const handleLogOut = () => {
     logOut()
       .then(() => {
-        console.log('logout successfylly');
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        
+      });
   }
 
     const navOptions = (
