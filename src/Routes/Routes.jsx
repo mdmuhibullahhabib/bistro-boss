@@ -18,6 +18,7 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import Success from "../pages/Dashboard/Payment/Success";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "success",
+        element: <Success />,
+      },
     ],
   },
   {
@@ -75,6 +80,7 @@ export const router = createBrowserRouter([
         path: "payment",
         element: <Payment></Payment>,
       },
+
       {
         path: "paymentHistory",
         element: <PaymentHistory></PaymentHistory>,
