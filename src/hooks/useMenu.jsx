@@ -10,7 +10,7 @@ const useMenu = () => {
   // // console.log(menu);
 
   //   useEffect(() => {
-  //       fetch(`https://bistro-boss-server-indol-five.vercel.app/menu`)
+  //       fetch(`http://localhost:5000/menu`)
   //         .then((res) => res.json())
   //         .then((data) => {
   //           setMenu(data);
