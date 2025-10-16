@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
-
+//   const c
     const [desabled, setDesabled] = useState(true);
     const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
